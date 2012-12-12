@@ -11,17 +11,21 @@
 use strict;
 use IO::Socket::INET;
 
+#change this to suit your infra 
 my $prefix = "graphite.virtuzzo"; 
 my $carbon_server = "carbon.host.com";
 my $carbon_port = "2003";
+
+# metric path - change this to suit you infra
 my $hostname = `hostname`;
 my $hn = chomp $hostname;
 my @hname = split( '\.', $hostname);
 my @rhname = reverse @hname;
 my $revhname = join( '.', @rhname);
 my $mprefix = $prefix . "." .  $revhname . "." . "per-vps";
-my $str;
 
+# code follows
+my $str;
 my $sock = IO::Socket::INET->new(
 		PeerAddr => $carbon_server,
 		PeerPort => $carbon_port,
@@ -43,7 +47,7 @@ while ( defined( my $line = <DATA> )  ) {
 	chomp($line);
   next if ( $line !~ m/^\s+([0-9]+)/ );
 
-  #santizing the ivzstat output for easier parsing
+  #sanitizing the vzstat output for easier parsing
   # remove space after / in %sw stats
   $line =~ s/\/ /\//g;
   #remove whitespaces/tabs at the start of the line 
