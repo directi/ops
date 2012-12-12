@@ -12,7 +12,7 @@ use strict;
 use IO::Socket::INET;
 
 #change this to suit your infra 
-my $prefix = "graphite.virtuzzo"; 
+my $prefix = "graphite.virtuozzo"; 
 my $carbon_server = "carbon.host.com";
 my $carbon_port = "2003";
 
